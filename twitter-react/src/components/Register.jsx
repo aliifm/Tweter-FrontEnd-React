@@ -86,12 +86,12 @@ function Register() {
               </button>
             </form>
             <a
-              className="text-decoration-none text-dark text-center d-block"
+              className="text-decoration-none text-dark text-center d-block "
               href="/"
             >
-              Already have an account? Sign in
+              Already have an account?
+              <Link to="/"> Sign in </Link>
             </a>
-            <Link to="/">Volver </Link>
           </div>
         </div>
       </section>
