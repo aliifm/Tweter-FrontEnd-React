@@ -1,6 +1,6 @@
 import React from "react";
 
-function home() {
+function Home() {
   return (
     <div className="container">
       <div className="row">
@@ -62,4 +62,4 @@ function home() {
   );
 }
 
-export default home;
+export default Home;

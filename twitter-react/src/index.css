@@ -1,13 +1,109 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+
+.sideSize {
+  width: 30vw;
+}
+
+.bgTweeter {
+  background: #1d9bf0;
+  color: white;
+}
+
+.iconSidebar {
+  max-height: 50px;
+  max-width: 50px;
+  padding: 5px;
+}
+
+.login-style {
+  display: flex;
+  justify-content: center;
+}
+
+#sidebar-container {
+  width: 450px;
+}
+.content-container {
+  width: 100%;
+}
+#right-container {
+  width: 650px;
+}
+
+.profileImage {
+  width: 50px;
+  height: 50px;
+  margin-right: 15px;
+  border-radius: 50%;
+}
+
+.profileImageHero {
+  width: 100px;
+  height: 100px;
+  margin-right: 15px;
+  border-radius: 50%;
+  margin-left: 15px;
+  position: absolute;
+  bottom: -50px;
+  border: solid white 5px;
+}
+
+#newTweet {
+  all: unset;
+}
+
+#tweet-content {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+
+.background-color-login {
+  background-color: rgb(46, 46, 121);
+}
+
+.celeste {
+  border-bottom: 3px solid #1d9bf0;
+}
+
+@media (max-width: 1000px) {
+  .hidden-sm {
+    display: none !important;
+  }
+}
+@media (max-width: 767px) {
+  .hidden-md {
+    display: none !important;
+  }
+}
+@media (max-width: 767px) {
+  .display-sm {
+    display: flex !important;
+    justify-content: space-evenly !important;
+  }
+}
+
+.hidden {
+  display: none;
 }
