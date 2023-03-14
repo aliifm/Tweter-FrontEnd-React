@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Sidebar() {
   return (
@@ -54,9 +55,11 @@ function Sidebar() {
             </a>
           </li>
         </ul>
-        <a href="/auth/logout">
+        {/* <a href="/auth/logout"> */}
+        <Link to="/prueba">
           <button className="btn btn-danger rounded-pill mb-3">Logout</button>
-        </a>
+        </Link>
+        {/* </a> */}
       </div>
     </div>
   );
