@@ -2,7 +2,7 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Routes, Route } from "react-router-dom";
 import Register from "./components/Register";
-import Login from "./components/Login";
+import LoginPage from "./pages/LoginPage";
 // import Profile from "./components/Profile";
 // import Sidebar from "./components/Sidebar";
 // import RightSidebar from "./components/RightSidebar";
@@ -16,6 +16,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/prueba" element={<Register />} />
+        <Route path="/login" element={<LoginPage />} />
       </Routes>
     </div>
   );
