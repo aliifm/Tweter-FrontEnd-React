@@ -51,12 +51,11 @@ function Login() {
               </button>
             </form>
             <p className="text-decoration-none text-dark text-center d-block">
-              Don't have an account? <Link to="/prueba">Sign up </Link>
+              Don't have an account? <Link to="/register">Sign up </Link>
             </p>
           </div>
         </div>
       </section>
-
       <script src="https://kit.fontawesome.com/9f0d5f7751.js" crossorigin="anonymous"></script>
     </div>
   );
