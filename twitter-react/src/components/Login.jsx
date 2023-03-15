@@ -1,14 +1,18 @@
 import React from "react";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { createUser } from "../redux/userSlice";
 
 function Login() {
   const [inputEmail, setInputEmail] = useState("");
   const [inputPassword, setInputPassword] = useState("");
 
+  const user = useSelector((state) => state.users);
   const dispatch = useDispatch();
+
+  console.log(user);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -20,7 +24,7 @@ function Login() {
         password: inputPassword,
       },
     });
-    // dispatch(addtoken(response.data.token));
+    dispatch(createUser(response.data));
   };
 
   return (
@@ -45,9 +49,9 @@ function Login() {
                 Login
               </button>
             </form>
-            {/* <a className="text-decoration-none text-dark text-center d-block" href="/register">
+            <p className="text-decoration-none text-dark text-center d-block">
               Don't have an account? <Link to="/prueba">Sign up </Link>
-            </a> */}
+            </p>
           </div>
         </div>
       </section>

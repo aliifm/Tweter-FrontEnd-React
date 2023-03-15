@@ -3,13 +3,8 @@ import ReactDOM from "react-dom/client";
 import "./App.css";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
-import userSlice from "./slice/userSlice";
-import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
-
-const store = configureStore({
-  reducer: { users: userSlice },
-});
+import store from "./redux/storeConfig";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
