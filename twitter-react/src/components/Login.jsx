@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { createUser } from "../redux/userSlice";
+import { login } from "../redux/userReducer";
 
 function Login() {
   const [inputEmail, setInputEmail] = useState("");
@@ -24,7 +24,8 @@ function Login() {
         password: inputPassword,
       },
     });
-    dispatch(createUser(response.data));
+
+    dispatch(login(response.data));
   };
 
   return (

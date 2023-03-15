@@ -3,26 +3,21 @@ import { format } from "date-fns";
 
 const initialState = {
   token: null,
-  user: {
-    id: null,
-    username: null,
-    firstname: null,
-    lastname: null,
-    avatar: null,
-  },
+  user: null,
 };
-
+// Agregar la data del store en el localStorage (usar libreria que paso marcus)
 const userSlice = createSlice({
-  name: "userSlice",
+  name: "users",
   initialState,
   reducers: {
-    createUser: {
+    login: {
       reducer: (state, action) => {
-        const { id, username, firstname, lastname, avatar, token } = action.payload;
+        const { user, token } = action.payload;
         state.token = token;
-        state.user = { id, username, firstname, lastname, avatar };
+        state.user = user;
       },
     },
+    logout(state, action) {},
     // addToken(state, action) {
     //   state.token = action.payload;
     // },
@@ -35,6 +30,6 @@ const userSlice = createSlice({
   },
 });
 
-export const { createUser } = userSlice.actions;
+export const { login } = userSlice.actions;
 
 export default userSlice.reducer;

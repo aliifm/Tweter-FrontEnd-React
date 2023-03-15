@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { createUser } from "../redux/userSlice";
+import { login } from "../redux/userReducer";
 
 function Register() {
   const [inputFirstname, setInputFirstname] = useState("");
@@ -29,8 +29,7 @@ function Register() {
         avatar: inputAvatar,
       },
     });
-    console.log(response.data);
-    dispatch(createUser(response.data));
+    dispatch(login(response.data));
   };
 
   return (
