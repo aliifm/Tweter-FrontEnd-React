@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Followers() {
   return (
@@ -8,12 +9,12 @@ function Followers() {
         <div className="p-3 min-vh-100 col-sm-9 col-9 col-md-6 mb-2">
           <div className="row text-center mb-4">
             <div className="col-6">
-              <a
-                href="/usuarios/followers/<%= profileUser.username %>"
+              <Link
+                to={"/usuarios/followers/:id"}
                 className="fs-5 text-muted text-decoration-none celeste"
               >
                 Followers
-              </a>
+              </Link>
             </div>
             <div className="col-6">
               <a

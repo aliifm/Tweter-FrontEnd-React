@@ -9,6 +9,7 @@ import LoginPage from "./pages/LoginPage";
 // import Following from "./components/Following";
 // import Error from "./components/404";
 import Home from "./pages/Home";
+import ProfilePage from "./pages/ProfilePage";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/prueba" element={<Register />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/profile/:id" element={<ProfilePage />} />
       </Routes>
     </div>
   );

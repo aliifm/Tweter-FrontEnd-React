@@ -2,7 +2,7 @@ import React from "react";
 import Sidebar from "../components/Sidebar";
 import HomeComponent from "../components/HomeComponent";
 import RightSidebar from "../components/RightSidebar";
-
+import "./PageStyles.css";
 function Home() {
   return (
     <div className="container">
