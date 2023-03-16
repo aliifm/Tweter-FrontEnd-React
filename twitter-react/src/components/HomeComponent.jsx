@@ -61,35 +61,11 @@ function Home() {
               </form>
             </div>
           </div>
-
-          {tweets.map((tweet) => {
-            return <Tweet tweet={tweet} />;
-          })}
-
-          {/* <div className="d-flex p-2 border-end border-start border-bottom w-100">
-            <div className="w-75">
-              <div className="d-flex align-items-baseline w-100">
-                <a
-                  className="text-decoration-none text-reset"
-                  href="/usuarios/<%= tweet.userId.username %>"
-                >
-                  <h6 className="mb-0 mr-2"></h6>
-                </a>
-              </div>
-
-              <div className="d-flex p-2 justify-content-between">
-                <form method="post" action="/tweets/<%= tweet.id  %>/like">
-                  <button
-                    id="cora_<% tweet._id %>"
-                    type="submit"
-                    className="border-0 bg-transparent"
-                  >
-                    <i className="<% if(tweet.likes.includes(locals.user.id)){%> fa-solid <%} else {%> fa-regular <%}%> text-danger fa-heart"></i>
-                  </button>
-                </form>
-              </div>
-            </div>
-          </div> */}
+          <div className="border">
+            {tweets.map((tweet) => {
+              return <Tweet key={tweet.id} tweet={tweet} />;
+            })}
+          </div>
         </div>
       </div>
     );
