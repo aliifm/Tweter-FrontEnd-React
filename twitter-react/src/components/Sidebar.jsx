@@ -1,7 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { logout } from "../redux/userReducer";
+import { useDispatch } from "react-redux";
 
 function Sidebar() {
+  const dispatch = useDispatch();
   return (
     <div className="col-sm-auto sticky-top vh-100">
       <div className="d-flex flex-column align-items-center sticky-top h-100">
@@ -55,11 +58,13 @@ function Sidebar() {
             </a>
           </li>
         </ul>
-        {/* <a href="/auth/logout"> */}
-        <Link to="/prueba">
-          <button className="btn btn-danger rounded-pill mb-3">Logout</button>
-        </Link>
-        {/* </a> */}
+
+        <button
+          className="btn btn-danger rounded-pill mb-3"
+          onClick={() => dispatch(logout())}
+        >
+          Logout
+        </button>
       </div>
     </div>
   );

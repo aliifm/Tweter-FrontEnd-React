@@ -17,19 +17,13 @@ const userSlice = createSlice({
         state.user = user;
       },
     },
-    logout(state, action) {},
-    // addToken(state, action) {
-    //   state.token = action.payload;
-    // },
-    addUser(state, action) {
-      //   const { listaId } = action.payload;
-      //   const listaActualizada = state.filter((lista) => lista.id !== listaId);
-      //   return (state = listaActualizada);
-      // Esta función es del ejercicio 19, era solo para ver de ejemplo
+    logout(state, action) {
+      state.token = null;
+      state.user = null;
     },
   },
 });
 
-export const { login } = userSlice.actions;
+export const { login, logout } = userSlice.actions;
 
 export default userSlice.reducer;
