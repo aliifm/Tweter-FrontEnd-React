@@ -75,29 +75,7 @@ function Followers() {
           </div>
         );
       })}
-      {/* <div className="row mb-3">
-        <div className="col-3 text-center">
-          <img
-            className="rounded-circle img-fluid w-100 useravatar-fol"
-            src="<%= follower.avatar%>"
-            alt="Profilmage"
-          />
-        </div>
-        <div className="col-6 p-0">
-          <p className="mb-0">
-            <strong>firstname lastname</strong>
-          </p>
-          <small className="text-muted">@.username</small>
-        </div>
-        <div className="col-3 p-0">
-          <button type="button" className="btn btn-primary rounded-pill mr-2">
-            Follow
-          </button>
-        </div>
-      </div> */}
-      {/* <% } %> */}
     </div>
   );
 }
-
 export default Followers;
