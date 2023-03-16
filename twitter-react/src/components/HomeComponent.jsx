@@ -10,13 +10,12 @@ import { login, logout } from "../redux/userReducer";
 function Home() {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.user.token);
-  const userStore = useSelector((state) => state);
+  const userStore = useSelector((state) => state.user.user);
   const params = useParams();
   const navigate = useNavigate();
   const [user, setUser] = useState([]);
   const [tweets, setTweets] = useState([]);
 
-  console.log(userStore);
   useEffect(() => {
     const getTweets = async () => {
       const response = await axios({
@@ -24,21 +23,13 @@ function Home() {
           Authorization: `Bearer ${token}`,
         },
         method: "get",
-        url: `http://localhost:8000/usuarios/${params._id}`,
+        url: `http://localhost:8000/tweets`,
       });
-      setUser(response.data);
-
-      console.log(token);
-      console.log(tweets);
+      setTweets(response.data);
+      console.log(response.data);
     };
     getTweets();
   }, []);
-
-  // if (true) {
-  //   dispatch(logout());
-  // }
-
-  console.log(!token);
 
   if (!token) {
     return <Navigate to="/login" />;
@@ -77,7 +68,7 @@ function Home() {
                   className="text-decoration-none text-reset"
                   href="/usuarios/<%= tweet.userId.username %>"
                 >
-                  <h6 className="mb-0 mr-2">aa</h6>
+                  <h6 className="mb-0 mr-2"></h6>
                 </a>
               </div>
 
