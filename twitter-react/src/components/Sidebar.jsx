@@ -1,10 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
+
 import { logout } from "../redux/userReducer";
 import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 function Sidebar() {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.user);
+
   return (
     <div className="col-sm-auto sticky-top vh-100">
       <div className="d-flex flex-column align-items-center sticky-top h-100">
@@ -33,7 +37,7 @@ function Sidebar() {
           </li>
           <li>
             <Link
-              to={"/profile/:id"}
+              to={`/profile/${user.username}`}
               className="d-block nav-link py-3 px-2 link-dark fs-2"
               title=""
               data-bs-toggle="tooltip"

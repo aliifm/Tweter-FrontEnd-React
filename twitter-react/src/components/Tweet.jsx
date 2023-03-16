@@ -1,6 +1,8 @@
 import React from "react";
 
 function Tweet({ tweet }) {
+  console.log(tweet.likes);
+
   return (
     <div className="d-flex p-2 w-100">
       <img
@@ -27,22 +29,20 @@ function Tweet({ tweet }) {
           {tweet.body}
         </p>
         <div className="d-flex p-2 justify-content-between align-items-baseline">
-          <form method="post" action="/tweets/<%= tweet.id  %>/like">
+          <form method="post" action={`/tweets/${tweet._id}/like`}>
+            {console.log(tweet)}
             <div className="d-flex align-items-baseline">
-              <label className="container-heart">
-                <input checked="checked" type="checkbox" />
-                <div className="checkmark">
-                  <svg viewBox="0 0 256 256">
-                    <rect fill="none" height="256" width="256"></rect>
-                    <path
-                      d="M224.6,51.9a59.5,59.5,0,0,0-43-19.9,60.5,60.5,0,0,0-44,17.6L128,59.1l-7.5-7.4C97.2,28.3,59.2,26.3,35.9,47.4a59.9,59.9,0,0,0-2.3,87l83.1,83.1a15.9,15.9,0,0,0,22.6,0l81-81C243.7,113.2,245.6,75.2,224.6,51.9Z"
-                      stroke-width="20px"
-                      stroke="#FFF"
-                      fill="none"
-                    ></path>
-                  </svg>
-                </div>
-              </label>
+              <button type="submit" className="border-0 bg-transparent">
+                <i
+                  className={`${
+                    tweet.likes.includes(tweet.userId)
+                      ? "fa-solid text-danger fa-heart"
+                      : "fa-heart fa-regular"
+                  }`}
+                ></i>
+                {console.log(tweet.likes.includes(tweet.userId))}
+              </button>
+
               <span className="ms-1"> {tweet.likes.length} </span>
             </div>
           </form>
@@ -63,3 +63,9 @@ function Tweet({ tweet }) {
 }
 
 export default Tweet;
+
+{
+  /* <div className={`alert ${condicion ? "alert-success" : "alert-danger"}`}>
+  {condicion ? "Verdadero" : "Falso"}
+</div> */
+}
