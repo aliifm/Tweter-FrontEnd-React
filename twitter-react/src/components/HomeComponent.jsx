@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import userReducer from "../redux/userReducer";
 import { login, logout } from "../redux/userReducer";
+import Tweet from "./Tweet";
 
 function Home() {
   const dispatch = useDispatch();
@@ -25,7 +26,7 @@ function Home() {
         method: "get",
         url: `http://localhost:8000/tweets`,
       });
-      setTweets(response.data);
+      setTweets(response.data.tweets);
       console.log(response.data);
     };
     getTweets();
@@ -61,7 +62,11 @@ function Home() {
             </div>
           </div>
 
-          <div className="d-flex p-2 border-end border-start border-bottom w-100">
+          {tweets.map((tweet) => {
+            return <Tweet tweet={tweet} />;
+          })}
+
+          {/* <div className="d-flex p-2 border-end border-start border-bottom w-100">
             <div className="w-75">
               <div className="d-flex align-items-baseline w-100">
                 <a
@@ -84,7 +89,7 @@ function Home() {
                 </form>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     );
