@@ -1,8 +1,6 @@
 import React from "react";
 
 function Tweet({ tweet }) {
-  console.log(tweet.likes);
-
   return (
     <div className="d-flex p-2 w-100">
       <img
@@ -30,7 +28,6 @@ function Tweet({ tweet }) {
         </p>
         <div className="d-flex p-2 justify-content-between align-items-baseline">
           <form method="post" action={`/tweets/${tweet._id}/like`}>
-            {console.log(tweet)}
             <div className="d-flex align-items-baseline">
               <button type="submit" className="border-0 bg-transparent">
                 <i
@@ -40,7 +37,6 @@ function Tweet({ tweet }) {
                       : "fa-heart fa-regular"
                   }`}
                 ></i>
-                {console.log(tweet.likes.includes(tweet.userId))}
               </button>
 
               <span className="ms-1"> {tweet.likes.length} </span>
