@@ -14,11 +14,11 @@ function FollowButton({ isFollowing }) {
   return (
     <div>
       {isFollowing ? (
-        <button type="button" className={`${classes}`}>
+        <button type="button" className={classes}>
           Unfollow
         </button>
       ) : (
-        <button type="button" className={`${classes}`}>
+        <button type="button" className={classes}>
           Follow
         </button>
       )}

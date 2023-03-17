@@ -8,7 +8,8 @@ import FollowButton from "./FollowButton";
 
 function Followers() {
   const [followers, setFollowers] = useState([]);
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState(null);
+  const [refresh, setRefresh] = useState(false);
 
   const dispatch = useDispatch();
   const token = useSelector((state) => state.user.token);
@@ -27,21 +28,9 @@ function Followers() {
     setUser(response.data.profileUser);
   };
 
-  // useEffect(() => {
-  //   const response = await axios({
-  //     headers: {
-  //       Authorization: `Bearer ${token}`,
-  //     },
-  //     method: "post",
-  //     url: `http://localhost:8000/usuarios/${follower._id}/userFollow`,
-  //   });
-  //   setUser(response.data.loggedUser);
-
-  // }, []);
-
   useEffect(() => {
     getFollowers();
-  }, []);
+  }, [refresh]);
 
   const handleFollow = async (follower) => {
     const response = await axios({
@@ -52,6 +41,7 @@ function Followers() {
       url: `http://localhost:8000/usuarios/${follower._id}/userFollow`,
     });
     setUser(response.data.loggedUser);
+    setRefresh((prev) => !prev);
   };
 
   return (
@@ -85,7 +75,11 @@ function Followers() {
               <small className="text-muted">@{follower.username}</small>
             </div>
             <div className="col-3 p-0" onClick={() => handleFollow(follower)}>
-              <FollowButton isFollowing={user.following.includes(follower._id)} />
+              {/* include para objetos no es muy bueno porque los objetos por mas que sean iguales no son los mismos, include es solamente para cuando trabajamos con strings pelados!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */}
+              {user && <FollowButton isFollowing={user.following.some((item) => item._id === follower._id)} />}
+
+              {console.log("follow:", user.following)}
+              {console.log("f._id: ", follower._id)}
             </div>
           </div>
         );
