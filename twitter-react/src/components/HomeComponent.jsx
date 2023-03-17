@@ -8,8 +8,13 @@ import { useSelector } from "react-redux";
 function Home() {
   const token = useSelector((state) => state.user.token);
 
+  const [count, setCount] = useState(0);
   const [tweets, setTweets] = useState([]);
   const [newTweet, setNewTweet] = useState("");
+
+  const handleChildChange = (newCount) => {
+    setCount(newCount);
+  };
 
   const getTweets = async () => {
     const response = await axios({
@@ -31,6 +36,7 @@ function Home() {
   //en el if pregunto por esa respuesta y adentro llamo a "getTweets();" para que se renderice solo el componente y asi cambia el color del
   //cora en tiempo real
   const handleLike = async (tweet) => {
+    console.log(tweet._id);
     const response = await axios({
       headers: {
         Authorization: `Bearer ${token}`,
@@ -46,14 +52,14 @@ function Home() {
   };
 
   const handleDelete = async (tweet) => {
+    console.log(tweet._id);
     const response = await axios({
       headers: {
         Authorization: `Bearer ${token}`,
       },
-      method: "post",
+      method: "delete",
       url: `http://localhost:8000/tweets/${tweet._id}`,
     });
-
     console.log(response.data.like);
     if (response.data.like) {
       getTweets();
@@ -76,6 +82,17 @@ function Home() {
           body: newTweet,
         },
       });
+      const getTweets = async () => {
+        const response = await axios({
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          method: "get",
+          url: `http://localhost:8000/tweets`,
+        });
+        setTweets(response.data.tweets);
+      };
+      getTweets();
     };
 
     return (
@@ -85,21 +102,10 @@ function Home() {
             <h3>Home</h3>
             <div className="d-flex align-items-center">
               <form className="w-100" method="post" onSubmit={handleSubmit}>
-                <input
-                  type="text"
-                  id="newTweet"
-                  name="newTweet"
-                  value={newTweet}
-                  className="w-100 form-control"
-                  placeholder=" What's happening?"
-                  onChange={(e) => setNewTweet(e.target.value)}
-                />
+                <input type="text" id="newTweet" name="newTweet" value={newTweet} className="w-100 form-control" placeholder=" What's happening?" onChange={(e) => setNewTweet(e.target.value)} />
 
                 <div className="d-flex justify-content-end">
-                  <button
-                    type="submit"
-                    className="btn bgTweeter rounded-pill mt-2"
-                  >
+                  <button type="submit" className="btn bgTweeter rounded-pill mt-2">
                     Tweet
                   </button>
                 </div>
@@ -116,10 +122,8 @@ function Home() {
                     handleLike(tweet);
                     e.preventDefault();
                   }}
-                  delete={(e) => {
-                    handleDelete(tweet);
-                    e.preventDefault();
-                  }}
+                  count={count}
+                  onChange={handleChildChange}
                 />
               );
             })}
