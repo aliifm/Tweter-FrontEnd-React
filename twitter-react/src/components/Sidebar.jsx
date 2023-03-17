@@ -56,9 +56,9 @@ function Sidebar() {
               data-bs-placement="right"
               data-bs-original-title="Orders"
             >
-              <a href="/" className="btn bgTweeter rounded-pill">
+              <span className="btn bgTweeter rounded-pill">
                 Tweet
-              </a>
+              </span>
             </a>
           </li>
         </ul>

@@ -1,12 +1,33 @@
+import axios from "axios";
 import React from "react";
+import { useSelector } from "react-redux";
 
-function Tweet({ tweet }) {
+function Tweet({ tweet, like }) {
+  // desestructure el state del UserReducer
+  //para traer el user por separado
+  const { token, user } = useSelector((state) => state.user);
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   console.log(tweet);
+  //   const response = await axios({
+  //     headers: {
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //     method: "post",
+  //     url: `http://localhost:8000/tweets/${tweet._id}/like`,
+  //   });
+
+  //   console.log(response.data);
+  // };
   return (
     <div className="d-flex p-2 w-100">
       <img
         src={tweet.userId.avatar}
         className="profileImage"
         alt="img-profile"
+       
       />
       <div className="w-75">
         <div className="d-flex align-items-baseline w-100">
@@ -27,12 +48,16 @@ function Tweet({ tweet }) {
           {tweet.body}
         </p>
         <div className="d-flex p-2 justify-content-between align-items-baseline">
-          <form method="post" action={`/tweets/${tweet._id}/like`}>
+          {/* "{like}" que seria la funcion que teniamos "handleSumbit" es pasado por props desde HomeComponent */}
+          <form onSubmit={like}> 
             <div className="d-flex align-items-baseline">
               <button type="submit" className="border-0 bg-transparent">
                 <i
                   className={`${
-                    tweet.likes.includes(tweet.userId)
+                    // tweet.likes.includes(tweet.userId) asi estaba antes
+                    //userId es un objeto, por ende no podria nunca estar incluido en el array de likes
+                    // al traer user desestructurado de la store accedemos al _id de user, para meterlo en el array de likes
+                    tweet.likes.includes(user._id)
                       ? "fa-solid text-danger fa-heart"
                       : "fa-heart fa-regular"
                   }`}
