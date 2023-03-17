@@ -27,7 +27,6 @@ function Tweet({ tweet, like }) {
         src={tweet.userId.avatar}
         className="profileImage"
         alt="img-profile"
-       
       />
       <div className="w-75">
         <div className="d-flex align-items-baseline w-100">
@@ -49,7 +48,7 @@ function Tweet({ tweet, like }) {
         </p>
         <div className="d-flex p-2 justify-content-between align-items-baseline">
           {/* "{like}" que seria la funcion que teniamos "handleSumbit" es pasado por props desde HomeComponent */}
-          <form onSubmit={like}> 
+          <form onSubmit={like}>
             <div className="d-flex align-items-baseline">
               <button type="submit" className="border-0 bg-transparent">
                 <i
@@ -71,11 +70,18 @@ function Tweet({ tweet, like }) {
           {/* <!-- <p><--%=locals.user.id == tweet.userId._id%></p> --> */}
           {/* <!-- <--% if(localUser == tweet.userId._id){%> --> */}
           {/* <% if(user.id === profileUser.id){ %> */}
-          <form method="POST" action="/tweets/<%= tweet._id %>?_method=DELETE">
+          {/* preguntar si el user logueado hizo el tweet
+          si lo hizo mostrar basura sino no - HECHO
+          */}
+          {user._id === tweet.userId && <form method="POST" action="/tweets/<%= tweet._id %>?_method=DELETE">
             <button type="submit" className="border-0 bg-transparent">
-              <i className="fa-solid fa-trash ms-auto"></i>
+            
+               
+               <i className="fa-solid fa-trash ms-auto"></i>
+                 
+
             </button>
-          </form>
+          </form>}
           {/* <%}%> */}
         </div>
       </div>
