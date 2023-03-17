@@ -8,10 +8,15 @@ import ProfileTweet from "./ProfileTweet";
 function Profile() {
   const [profile, setProfile] = useState([]);
   const [tweets, setTweet] = useState([]);
+  const [count, setCount] = useState(0);
 
   const token = useSelector((state) => state.user.token);
   const { user } = useSelector((state) => state.user);
   const params = useParams();
+
+  const handleChildChange = (newCount) => {
+    setCount(newCount);
+  };
 
   useEffect(() => {
     const getUser = async () => {
@@ -28,25 +33,57 @@ function Profile() {
     getUser();
   }, []);
 
+  const getTweets = async () => {
+    const response = await axios({
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      method: "get",
+      url: `http://localhost:8000/tweets/show`,
+    });
+    setTweet(response.data);
+    console.log(response.data);
+  };
+
   useEffect(() => {
-    const getTweets = async () => {
-      const response = await axios({
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        method: "get",
-        url: `http://localhost:8000/tweets/show`,
-      });
-      setTweet(response.data);
-      console.log(response.data);
-    };
     getTweets();
   }, []);
+
+  const handleLike = async (tweet) => {
+    console.log(tweet._id);
+    const response = await axios({
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      method: "post",
+      url: `http://localhost:8000/tweets/${tweet._id}/like`,
+    });
+
+    console.log(response.data.like);
+    if (response.data.like) {
+      getTweets();
+    }
+  };
+
+  const handleDelete = async (tweet) => {
+    console.log(tweet._id);
+    const response = await axios({
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      method: "delete",
+      url: `http://localhost:8000/tweets/${tweet._id}`,
+    });
+    console.log(response.data.like);
+    if (response.data.like) {
+      getTweets();
+    }
+  };
 
   return (
     <div className="min-vh-100 col-sm-9 col-9 col-md-10 col-lg-6">
       <div className="content-container h-50 p-0">
-        <div className="h-25 bgTweeter position-relative">
+        <div className="bgTweeter bg-height position-relative">
           <img
             className="profileImageHero"
             alt="imgHero"
@@ -67,26 +104,6 @@ function Profile() {
           </button>
         </form>
 
-        <form
-          className="d-flex"
-          action="/usuarios/<%= profileUser.id %>/follow"
-          method="post"
-        >
-          <button
-            className="btn text-white rounded-pill ms-auto mt-3 mb-3 text-transparent"
-            type="submit"
-          >
-            Unfollow
-          </button>
-
-          <button
-            type="submit"
-            className="btn text-white rounded-pill ms-auto mt-3 mb-3"
-          >
-            Follow
-          </button>
-        </form>
-
         <h5 className="fs-4 ms-4">
           {profile.firstname}
           {profile.lastname}
@@ -96,6 +113,9 @@ function Profile() {
           <p className="ms-4">{profile.description}</p>
         </div>
         <div className="d-flex justify-content-end">
+          <div>
+            <p className="ms-4 fw-bold">Tweets </p>
+          </div>
           <Link
             to={`/${profile.username}/following`}
             className="ms-auto text-decoration-none text-muted"
@@ -110,13 +130,23 @@ function Profile() {
             Followers
           </Link>
         </div>
-        <div>
-          <p className="ms-4 fw-bold border-bottom">Tweets </p>
-        </div>
 
-        <div>
+        <div className="border-top p-3">
           {tweets.map((tweet) => {
-            return <ProfileTweet profile={profile} tweet={tweet} />;
+            return (
+              <ProfileTweet
+                key={tweet.id}
+                profile={profile}
+                tweet={tweet}
+                like={(e) => {
+                  handleLike(tweet);
+                  e.preventDefault();
+                }}
+                // count={count}
+                // onChange={handleChildChange}
+                getTweets={getTweets}
+              />
+            );
           })}
         </div>
       </div>

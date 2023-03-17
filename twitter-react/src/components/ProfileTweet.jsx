@@ -1,8 +1,23 @@
+import axios from "axios";
 import React from "react";
 import { useSelector } from "react-redux";
 
-export default function ProfileTweet({ tweet, profile }) {
+export default function ProfileTweet({ tweet, profile, like, getTweets }) {
   const { token, user } = useSelector((state) => state.user);
+
+  const handleDelete = async () => {
+    const response = await axios({
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      method: "delete",
+      url: `http://localhost:8000/tweets/${tweet._id}`,
+    });
+    console.log(response.data);
+    getTweets();
+    if (response.data.like) {
+    }
+  };
 
   return (
     <div className="d-flex p-2 w-100">
@@ -30,7 +45,7 @@ export default function ProfileTweet({ tweet, profile }) {
         <div className="d-flex p-2 justify-content-between align-items-baseline">
           {/* { "{like}" que seria la funcion que teniamos "handleSumbit" es pasado por props desde HomeComponent */}
           {
-            <form>
+            <form onSubmit={like}>
               <div className="d-flex align-items-baseline">
                 <button type="submit" className="border-0 bg-transparent">
                   <i
@@ -49,6 +64,17 @@ export default function ProfileTweet({ tweet, profile }) {
               </div>
             </form>
           }
+          {user._id === tweet.userId && (
+            <button
+              type="submit"
+              className="border-0 bg-transparent"
+              onClick={handleDelete}
+            >
+              {user._id === tweet.userId.id && (
+                <i className="fa-solid fa-trash ms-auto"></i>
+              )}
+            </button>
+          )}
         </div>
       </div>
     </div>

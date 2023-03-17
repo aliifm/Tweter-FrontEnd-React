@@ -111,3 +111,7 @@ code {
 .hidden {
   display: none;
 }
+
+.bg-height {
+  height: 140px;
+}
