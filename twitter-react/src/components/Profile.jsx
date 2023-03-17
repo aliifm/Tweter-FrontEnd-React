@@ -105,8 +105,7 @@ function Profile() {
         </form>
 
         <h5 className="fs-4 ms-4">
-          {profile.firstname}
-          {profile.lastname}
+          {profile.firstname} {profile.lastname}
         </h5>
         <div className="d-flex flex-column">
           <p className="ms-4">@{profile.username}</p>
