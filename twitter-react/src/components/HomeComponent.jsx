@@ -8,13 +8,8 @@ import { useSelector } from "react-redux";
 function Home() {
   const token = useSelector((state) => state.user.token);
 
-  const [count, setCount] = useState(0);
   const [tweets, setTweets] = useState([]);
   const [newTweet, setNewTweet] = useState("");
-
-  const handleChildChange = (newCount) => {
-    setCount(newCount);
-  };
 
   const getTweets = async () => {
     const response = await axios({
@@ -30,26 +25,6 @@ function Home() {
   useEffect(() => {
     getTweets();
   }, []);
-
-  //la logica del like la use aca xq aca esta la llamada axios que trae todos los tweets
-  //la funcion handleLike envia el id del tweet likeado al back, la respuesta devuelve un booleano en true "return res.json({"like":true});"
-  //en el if pregunto por esa respuesta y adentro llamo a "getTweets();" para que se renderice solo el componente y asi cambia el color del
-  //cora en tiempo real
-  const handleLike = async (tweet) => {
-    console.log(tweet._id);
-    const response = await axios({
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      method: "post",
-      url: `http://localhost:8000/tweets/${tweet._id}/like`,
-    });
-
-    console.log(response.data.like);
-    if (response.data.like) {
-      getTweets();
-    }
-  };
 
   const handleDelete = async (tweet) => {
     console.log(tweet._id);
@@ -93,6 +68,7 @@ function Home() {
         setTweets(response.data.tweets);
       };
       getTweets();
+      setNewTweet("");
     };
 
     return (
@@ -114,18 +90,7 @@ function Home() {
           </div>
           <div className="border">
             {tweets.map((tweet) => {
-              return (
-                <Tweet
-                  key={tweet.id}
-                  tweet={tweet}
-                  like={(e) => {
-                    handleLike(tweet);
-                    e.preventDefault();
-                  }}
-                  count={count}
-                  onChange={handleChildChange}
-                />
-              );
+              return <Tweet key={tweet.id} tweet={tweet} getTweets={getTweets} />;
             })}
           </div>
         </div>

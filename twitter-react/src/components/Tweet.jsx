@@ -2,25 +2,9 @@ import axios from "axios";
 import React from "react";
 import { useSelector } from "react-redux";
 
-function Tweet({ tweet, like, count }) {
-  // desestructure el state del UserReducer
-  //para traer el user por separado
+function Tweet({ tweet, like, getTweets }) {
   const { token, user } = useSelector((state) => state.user);
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-
-  //   console.log(tweet);
-  //   const response = await axios({
-  //     headers: {
-  //       Authorization: `Bearer ${token}`,
-  //     },
-  //     method: "post",
-  //     url: `http://localhost:8000/tweets/${tweet._id}/like`,
-  //   });
-
-  //   console.log(response.data);
-  // };
   const handleDelete = async () => {
     const response = await axios({
       headers: {
@@ -30,9 +14,23 @@ function Tweet({ tweet, like, count }) {
       url: `http://localhost:8000/tweets/${tweet._id}`,
     });
     console.log(response.data);
-    // console.log(response.data.like);
+    getTweets();
     if (response.data.like) {
-      // getTweets();
+    }
+  };
+
+  const handleLike = async () => {
+    const response = await axios({
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      method: "post",
+      url: `http://localhost:8000/tweets/${tweet._id}/like`,
+    });
+
+    console.log(response.data.like);
+    if (response.data.like) {
+      getTweets();
     }
   };
   return (
@@ -54,40 +52,15 @@ function Tweet({ tweet, like, count }) {
           {tweet.body}
         </p>
         <div className="d-flex p-2 justify-content-between align-items-baseline">
-          {/* "{like}" que seria la funcion que teniamos "handleSumbit" es pasado por props desde HomeComponent */}
-          <form onSubmit={like}>
-            <div className="d-flex align-items-baseline">
-              <button onClick={() => handleDelete()} className="border-0 bg-transparent">
-                <i
-                  className={`${
-                    // tweet.likes.includes(tweet.userId) asi estaba antes
-                    //userId es un objeto, por ende no podria nunca estar incluido en el array de likes
-                    // al traer user desestructurado de la store accedemos al _id de user, para meterlo en el array de likes
-                    tweet.likes.includes(user._id) ? "fa-solid text-danger fa-heart" : "fa-heart fa-regular"
-                  }`}
-                ></i>
-              </button>
-
-              <span className="ms-1"> {tweet.likes.length} </span>
-            </div>
-          </form>
-
-          {/* <!-- <p><--%=locals.user.id == tweet.userId._id%></p> --> */}
-          {/* <!-- <--% if(localUser == tweet.userId._id){%> --> */}
-          {/* <% if(user.id === profileUser.id){ %> */}
-          {/* preguntar si el user logueado hizo el tweet
-          si lo hizo mostrar basura sino no - HECHO
-          */}
-          {/* {user._id === tweet.userId && (
-            <form method="POST" action="/tweets/<%= tweet._id %>?_method=DELETE">
-              <button type="submit" className="border-0 bg-transparent">
-                <i className="fa-solid fa-trash ms-auto"></i>
-              </button>
-            </form>
-          )} */}
+          <div className="d-flex align-items-baseline">
+            <button onClick={() => handleLike()} className="border-0 bg-transparent">
+              <i className={`${tweet.likes.includes(user._id) ? "fa-solid text-danger fa-heart" : "fa-heart fa-regular"}`}></i>
+            </button>
+            <span className="ms-1"> {tweet.likes.length} </span>
+          </div>
 
           <button type="submit" className="border-0 bg-transparent" onClick={handleDelete}>
-            <i className="fa-solid fa-trash ms-auto"></i>
+            {user._id === tweet.userId._id && <i className="fa-solid fa-trash ms-auto"></i>}
           </button>
         </div>
       </div>
@@ -96,9 +69,3 @@ function Tweet({ tweet, like, count }) {
 }
 
 export default Tweet;
-
-{
-  /* <div className={`alert ${condicion ? "alert-success" : "alert-danger"}`}>
-  {condicion ? "Verdadero" : "Falso"}
-</div> */
-}
