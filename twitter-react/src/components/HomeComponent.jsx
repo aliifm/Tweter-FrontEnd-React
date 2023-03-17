@@ -26,21 +26,6 @@ function Home() {
     getTweets();
   }, []);
 
-  const handleDelete = async (tweet) => {
-    console.log(tweet._id);
-    const response = await axios({
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      method: "delete",
-      url: `http://localhost:8000/tweets/${tweet._id}`,
-    });
-    console.log(response.data.like);
-    if (response.data.like) {
-      getTweets();
-    }
-  };
-
   if (!token) {
     return <Navigate to="/login" />;
   } else {

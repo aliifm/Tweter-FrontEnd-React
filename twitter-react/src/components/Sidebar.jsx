@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { logout } from "../redux/userReducer";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import TwitterModal from "./modal";
 
 function Sidebar() {
   const dispatch = useDispatch();
@@ -40,7 +41,7 @@ function Sidebar() {
           </li>
           <li>
             <Link
-              to={`/profile/${user.username}`}
+              to={`/${user.username}`}
               className="d-block nav-link py-3 px-2 link-dark fs-2"
               title=""
               data-bs-toggle="tooltip"
@@ -51,17 +52,15 @@ function Sidebar() {
             </Link>
           </li>
           <li>
-            <a
-              href="/"
+            <div
               className="d-block nav-link py-3 px-2"
               title=""
               data-bs-toggle="tooltip"
               data-bs-placement="right"
               data-bs-original-title="Orders"
             >
-              <span className="btn bgTweeter rounded-pill">Tweet</span>
-              <i></i>
-            </a>
+              <TwitterModal />
+            </div>
           </li>
         </ul>
 

@@ -8,6 +8,7 @@ import FollowingPage from "./pages/FollowingPage";
 import Home from "./pages/Home";
 import ProfilePage from "./pages/ProfilePage";
 import RegisterPage from "./pages/RegisterPage";
+import PersonalProfile from "./pages/PersonalProfile";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/profile/:username" element={<ProfilePage />} />
+        <Route path="/:username" element={<PersonalProfile />} />
         <Route path="/:username/followers" element={<FollowersPage />} />
         <Route path="/:username/following" element={<FollowingPage />} />
       </Routes>
