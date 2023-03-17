@@ -78,10 +78,21 @@ function Home() {
             <h3>Home</h3>
             <div className="d-flex align-items-center">
               <form className="w-100" method="post" onSubmit={handleSubmit}>
-                <input type="text" id="newTweet" name="newTweet" value={newTweet} className="w-100 form-control" placeholder=" What's happening?" onChange={(e) => setNewTweet(e.target.value)} />
+                <input
+                  type="text"
+                  id="newTweet"
+                  name="newTweet"
+                  value={newTweet}
+                  className="w-100 form-control"
+                  placeholder=" What's happening?"
+                  onChange={(e) => setNewTweet(e.target.value)}
+                />
 
                 <div className="d-flex justify-content-end">
-                  <button type="submit" className="btn bgTweeter rounded-pill mt-2">
+                  <button
+                    type="submit"
+                    className="btn bgTweeter rounded-pill mt-2"
+                  >
                     Tweet
                   </button>
                 </div>
@@ -90,7 +101,9 @@ function Home() {
           </div>
           <div className="border">
             {tweets.map((tweet) => {
-              return <Tweet key={tweet.id} tweet={tweet} getTweets={getTweets} />;
+              return (
+                <Tweet key={tweet.id} tweet={tweet} getTweets={getTweets} />
+              );
             })}
           </div>
         </div>

@@ -18,7 +18,8 @@ export default function ProfileTweet({ tweet, profile, like, getTweets }) {
     if (response.data.like) {
     }
   };
-
+  console.log(tweet);
+  console.log(user);
   return (
     <div className="d-flex p-2 w-100">
       <img src={profile.avatar} className="profileImage" alt="img-profile" />
@@ -64,15 +65,16 @@ export default function ProfileTweet({ tweet, profile, like, getTweets }) {
               </div>
             </form>
           }
-          {user._id === tweet.userId && (
+          {console.log(profile._id)}
+          {console.log(tweet.userId)}
+
+          {profile._id === tweet.userId && (
             <button
               type="submit"
               className="border-0 bg-transparent"
               onClick={handleDelete}
             >
-              {user._id === tweet.userId.id && (
-                <i className="fa-solid fa-trash ms-auto"></i>
-              )}
+              <i className="fa-solid fa-trash ms-auto"></i>
             </button>
           )}
         </div>

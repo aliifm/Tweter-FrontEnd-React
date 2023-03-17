@@ -5,25 +5,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { login } from "../redux/userReducer";
 
-function Register() {
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    const formData = new FormData();
-    formData.append("firstname", inputFirstname);
-    formData.append("lastname", inputLastname);
-    formData.append("email", inputEmail);
-    formData.append("username", inputUsername);
-    formData.append("password", inputPassword);
-    formData.append("avatar", inputAvatar);
-
-    const response = await axios.post(
-      "http://localhost:8000/usuarios",
-      formData
-    );
-    dispatch(login(response.data));
-  };
-
+function RegisterPage() {
   const [inputFirstname, setInputFirstname] = useState("");
   const [inputLastname, setInputLastname] = useState("");
   const [inputEmail, setInputEmail] = useState("");
@@ -33,10 +15,27 @@ function Register() {
 
   const dispatch = useDispatch();
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const response = await axios({
+      method: "post",
+      url: "http://localhost:8000/usuarios",
+      data: {
+        firstname: inputFirstname,
+        lastname: inputLastname,
+        email: inputEmail,
+        username: inputUsername,
+        password: inputPassword,
+        avatar: inputAvatar,
+      },
+    });
+    dispatch(login(response.data));
+  };
+
   return (
-    <div className="background-color-login h-100">
-      <section className="h-50 container d-flex justify-content-center align-items-center ">
-        <div className="row h-50">
+    <div className="background-color-login h-100 py-3">
+      <section className=" container d-flex justify-content-center align-items-center ">
+        <div className="row">
           <div className="hidden-md col-md-7 bgTweeter text-primary d-flex flex-column rounded-start">
             <i className="fa-brands fa-twitter fs-1 p-4 text-white"></i>
             <p className="text-white fs-4 mt-auto p-4">
@@ -118,7 +117,8 @@ function Register() {
                   className="form-control"
                   id="avatar"
                   name="avatar"
-                  onChange={(e) => setInputAvatar(e.target.files[0])}
+                  value={inputAvatar}
+                  onChange={(e) => setInputAvatar(e.target.value)}
                 />
               </div>
               <button
@@ -142,4 +142,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default RegisterPage;
