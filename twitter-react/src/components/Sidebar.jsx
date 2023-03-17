@@ -41,7 +41,7 @@ function Sidebar() {
           </li>
           <li>
             <Link
-              to={`/profile/${user.username}`}
+              to={`/${user.username}`}
               className="d-block nav-link py-3 px-2 link-dark fs-2"
               title=""
               data-bs-toggle="tooltip"

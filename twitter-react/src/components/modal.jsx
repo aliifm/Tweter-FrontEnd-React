@@ -5,6 +5,8 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { login } from "../redux/userReducer";
+import Tweet from "./Tweet";
+import { useEffect } from "react";
 
 function TwitterModal() {
   const token = useSelector((state) => state.user.token);
@@ -27,6 +29,7 @@ function TwitterModal() {
         body: newTweet,
       },
     });
+
     const getTweets = async () => {
       const response = await axios({
         headers: {
