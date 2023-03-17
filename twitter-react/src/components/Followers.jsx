@@ -4,10 +4,11 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { login } from "../redux/userReducer";
+import FollowButton from "./FollowButton";
 
 function Followers() {
   const [followers, setFollowers] = useState([]);
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState([]);
 
   const dispatch = useDispatch();
   const token = useSelector((state) => state.user.token);
@@ -23,11 +24,23 @@ function Followers() {
       url: `http://localhost:8000/usuarios/followers/${params.username}`,
     });
     setFollowers(response.data.profileFollowers);
+    setUser(response.data.profileUser);
   };
+
+  // useEffect(() => {
+  //   const response = await axios({
+  //     headers: {
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //     method: "post",
+  //     url: `http://localhost:8000/usuarios/${follower._id}/userFollow`,
+  //   });
+  //   setUser(response.data.loggedUser);
+
+  // }, []);
 
   useEffect(() => {
     getFollowers();
-    setUser(user1);
   }, []);
 
   const handleFollow = async (follower) => {
@@ -39,12 +52,7 @@ function Followers() {
       url: `http://localhost:8000/usuarios/${follower._id}/userFollow`,
     });
     setUser(response.data.loggedUser);
-    dispatch(login({ user: user1 }));
   };
-
-  // useEffect(() => {
-  //   dispatch(login({ user: user1 }));
-  // }, [user]);
 
   return (
     <div className="p-3 min-vh-100 col-sm-9 col-9 col-md-6 mb-2">
@@ -76,16 +84,8 @@ function Followers() {
               </p>
               <small className="text-muted">@{follower.username}</small>
             </div>
-            <div className="col-3 p-0">
-              {user.following.includes(follower._id) ? (
-                <button type="button" className="btn btn-transparent border rounded-pill mr-2" onClick={() => handleFollow(follower)}>
-                  Unfollow
-                </button>
-              ) : (
-                <button type="button" className="btn btn-primary rounded-pill mr-2" onClick={() => handleFollow(follower)}>
-                  Follow
-                </button>
-              )}
+            <div className="col-3 p-0" onClick={() => handleFollow(follower)}>
+              <FollowButton isFollowing={user.following.includes(follower._id)} />
             </div>
           </div>
         );
