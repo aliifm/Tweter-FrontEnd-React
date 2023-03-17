@@ -3,10 +3,14 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import ProfileTweet from "./ProfileTweet";
 
 function Profile() {
   const [profile, setProfile] = useState([]);
+  const [tweets, setTweet] = useState([]);
+
   const token = useSelector((state) => state.user.token);
+  const { user } = useSelector((state) => state.user);
   const params = useParams();
 
   useEffect(() => {
@@ -22,6 +26,21 @@ function Profile() {
       console.log(response.data.user);
     };
     getUser();
+  }, []);
+
+  useEffect(() => {
+    const getTweets = async () => {
+      const response = await axios({
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        method: "get",
+        url: `http://localhost:8000/tweets/show`,
+      });
+      setTweet(response.data);
+      console.log(response.data);
+    };
+    getTweets();
   }, []);
 
   return (
@@ -93,8 +112,12 @@ function Profile() {
         </div>
         <div>
           <p className="ms-4 fw-bold border-bottom">Tweets </p>
+        </div>
 
-          {/* ///map */}
+        <div>
+          {tweets.map((tweet) => {
+            return <ProfileTweet profile={profile} tweet={tweet} />;
+          })}
         </div>
       </div>
     </div>

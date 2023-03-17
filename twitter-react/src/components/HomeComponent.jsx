@@ -28,7 +28,7 @@ function Home() {
 
   //la logica del like la use aca xq aca esta la llamada axios que trae todos los tweets
   //la funcion handleLike envia el id del tweet likeado al back, la respuesta devuelve un booleano en true "return res.json({"like":true});"
-  //en el if pregunto por esa respuesta y adentro llamo a "getTweets();" para que se renderice solo el componente y asi cambia el color del 
+  //en el if pregunto por esa respuesta y adentro llamo a "getTweets();" para que se renderice solo el componente y asi cambia el color del
   //cora en tiempo real
   const handleLike = async (tweet) => {
     const response = await axios({
