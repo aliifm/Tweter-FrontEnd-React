@@ -2,8 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
-import { useSelector, useDispatch } from "react-redux";
-import { login } from "../redux/userReducer";
+import { useSelector } from "react-redux";
 import FollowButton from "./FollowButton";
 
 function Followers() {
@@ -11,9 +10,7 @@ function Followers() {
   const [user, setUser] = useState(null);
   const [refresh, setRefresh] = useState(false);
 
-  const dispatch = useDispatch();
   const token = useSelector((state) => state.user.token);
-  const user1 = useSelector((state) => state.user.user);
   const params = useParams();
 
   const getFollowers = async () => {
@@ -37,7 +34,7 @@ function Followers() {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-      method: "post",
+      method: "get",
       url: `http://localhost:8000/usuarios/${follower._id}/userFollow`,
     });
     setUser(response.data.loggedUser);
@@ -75,11 +72,8 @@ function Followers() {
               <small className="text-muted">@{follower.username}</small>
             </div>
             <div className="col-3 p-0" onClick={() => handleFollow(follower)}>
-              {/* include para objetos no es muy bueno porque los objetos por mas que sean iguales no son los mismos, include es solamente para cuando trabajamos con strings pelados!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */}
+              {/* include para objetos no es muy bueno porque los objetos por mas que sean iguales no son los mismos, include es solamente para cuando trabajamos con strings pelados!*/}
               {user && <FollowButton isFollowing={user.following.some((item) => item._id === follower._id)} />}
-
-              {console.log("follow:", user.following)}
-              {console.log("f._id: ", follower._id)}
             </div>
           </div>
         );
