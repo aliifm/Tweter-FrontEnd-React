@@ -22,7 +22,7 @@ function Followers() {
       url: `http://localhost:8000/usuarios/followers/${params.username}`,
     });
     setFollowers(response.data.profileFollowers);
-    setUser(response.data.profileUser);
+    setUser(response.data.loggedUser);
   };
 
   useEffect(() => {

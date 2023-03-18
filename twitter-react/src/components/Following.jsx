@@ -8,7 +8,10 @@ function Following() {
   const [following, setFollowing] = useState([]);
   const [user, setUser] = useState(null);
   const token = useSelector((state) => state.user.token);
+  const user1 = useSelector((state) => state.user.user);
   const params = useParams();
+
+  console.log(user1.username);
 
   useEffect(() => {
     const getFollowing = async () => {
@@ -20,8 +23,7 @@ function Following() {
         url: `http://localhost:8000/usuarios/followers/${params.username}`,
       });
       setFollowing(response.data.profileFollowing);
-      setUser(response.data.profileUser);
-      console.log(response.data.profileUser);
+      setUser(response.data.loggedUser);
     };
     getFollowing();
   }, []);
@@ -34,7 +36,6 @@ function Following() {
       method: "get",
       url: `http://localhost:8000/usuarios/${followed._id}/userFollow`,
     });
-    console.log(response.data.loggedUserFollowing);
     setFollowing(response.data.loggedUserFollowing);
   };
 
@@ -68,10 +69,15 @@ function Following() {
               <small className="text-muted">@{followed.username}</small>
             </div>
             <div className="col-3 p-0">
-              {}
-              <button onClick={() => stopFollowing(followed)} type="button" className="btn btn-transparent border rounded-pill mr-2">
-                Unfollow
-              </button>
+              {user1.username === params.username ? (
+                <button onClick={() => stopFollowing(followed)} type="button" className="btn btn-transparent border rounded-pill mr-2">
+                  Unfollow
+                </button>
+              ) : (
+                <button type="button" className="btn btn-transparent border rounded-pill mr-2">
+                  Unfollow
+                </button>
+              )}
             </div>
           </div>
         );
