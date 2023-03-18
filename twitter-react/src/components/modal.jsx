@@ -52,7 +52,7 @@ function TwitterModal() {
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton className="bg-light ">
-          <Modal.Title>New Tweet</Modal.Title>
+          <Modal.Title className="fs-5">New Tweet</Modal.Title>
         </Modal.Header>
         <Modal.Body className="bg-light  p-3">
           <form
@@ -62,13 +62,13 @@ function TwitterModal() {
             onSubmit={handleSubmit}
           >
             <input
-              className="form-control"
+              className="form-control border border-0"
               type="text"
               value={newTweet}
               placeholder=" What's happening?"
               onChange={(e) => setNewTweet(e.target.value)}
             />
-            <button type="submit" className="btn bg-light border ">
+            <button type="submit" className="btn bgTweeter rounded-pill mt-2">
               Tweet
             </button>
           </form>

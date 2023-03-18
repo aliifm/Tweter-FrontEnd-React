@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 
 function Home() {
   const token = useSelector((state) => state.user.token);
-
+  const { user } = useSelector((state) => state.user);
   const [tweets, setTweets] = useState([]);
   const [newTweet, setNewTweet] = useState("");
 
@@ -61,7 +61,13 @@ function Home() {
         <div className="content-container">
           <div className="px-2 pb-2 border-end border-start border-bottom border-top">
             <h3>Home</h3>
+            {console.log(user)}
             <div className="d-flex align-items-center">
+              <img
+                src={user.avatar}
+                alt="ImgProfile"
+                className="profileImage"
+              />
               <form className="w-100" method="post" onSubmit={handleSubmit}>
                 <input
                   type="text"
