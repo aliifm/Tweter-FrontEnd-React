@@ -6,12 +6,10 @@ import { useSelector } from "react-redux";
 
 function Following() {
   const [following, setFollowing] = useState([]);
-  const [user, setUser] = useState(null);
-  const token = useSelector((state) => state.user.token);
-  const user1 = useSelector((state) => state.user.user);
-  const params = useParams();
 
-  console.log(user1.username);
+  const { token, user } = useSelector((state) => state.user);
+
+  const params = useParams();
 
   useEffect(() => {
     const getFollowing = async () => {
@@ -23,7 +21,6 @@ function Following() {
         url: `http://localhost:8000/usuarios/followers/${params.username}`,
       });
       setFollowing(response.data.profileFollowing);
-      setUser(response.data.loggedUser);
     };
     getFollowing();
   }, []);
@@ -43,12 +40,18 @@ function Following() {
     <div className="p-3 min-vh-100 col-sm-9 col-9 col-md-6 mb-2">
       <div className="row text-center mb-4">
         <div className="col-6">
-          <Link to={`/${params.username}/followers`} className="fs-5 text-muted text-decoration-none">
+          <Link
+            to={`/${params.username}/followers`}
+            className="fs-5 text-muted text-decoration-none"
+          >
             Followers
           </Link>
         </div>
         <div className="col-6">
-          <Link to={`/${params.username}/following`} className="fs-5 text-muted text-decoration-none celeste">
+          <Link
+            to={`/${params.username}/following`}
+            className="fs-5 text-muted text-decoration-none celeste"
+          >
             Following
           </Link>
         </div>
@@ -58,7 +61,11 @@ function Following() {
         return (
           <div className="row mb-3">
             <div className="col-3 text-center">
-              <img className="rounded-circle img-fluid w-100 useravatar-fol" src={followed.avatar} alt="Profilmage" />
+              <img
+                className="rounded-circle img-fluid w-100 useravatar-fol"
+                src={followed.avatar}
+                alt="Profilmage"
+              />
             </div>
             <div className="col-6 p-0">
               <p className="mb-0">
@@ -69,12 +76,15 @@ function Following() {
               <small className="text-muted">@{followed.username}</small>
             </div>
             <div className="col-3 p-0">
-              {user1.username === params.username ? (
-                <button onClick={() => stopFollowing(followed)} type="button" className="btn btn-transparent border rounded-pill mr-2">
-                  Unfollow
-                </button>
-              ) : (
-                <button type="button" className="btn btn-transparent border rounded-pill mr-2">
+              {/* no era necesarioo el ternario, xq si dejas de seguir al user se va del array
+              y no es que apareceria un boton de follow
+              */}
+              {user.username === params.username && (
+                <button
+                  onClick={() => stopFollowing(followed)}
+                  type="button"
+                  className="btn btn-transparent border rounded-pill mr-2"
+                >
                   Unfollow
                 </button>
               )}

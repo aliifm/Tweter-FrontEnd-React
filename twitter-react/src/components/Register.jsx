@@ -19,8 +19,15 @@ function Register() {
 
     const response = await axios.post(
       "http://localhost:8000/usuarios",
-      formData
+
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
     );
+  
     dispatch(login(response.data));
   };
 
@@ -118,7 +125,15 @@ function Register() {
                   className="form-control"
                   id="avatar"
                   name="avatar"
-                  onChange={(e) => setInputAvatar(e.target.files[0])}
+                  onChange={(event) => {
+    //                   const ImageName = event.target.value.split('\\')[2];
+    // const Image = event.target.value;
+    // console.log('Imageon Kevel: ', Image); // Image on Kevel
+    // console.log('ImageName on Kevel: ', ImageName); // ImageName on Kevel
+    // console.log('ImageLink on Kevel: ', event.target.value); // ImageLink on Kevel
+    // console.log('event current Target files: ', event.target.files[0].path);
+                     setInputAvatar(event.target.files[0])
+                  }}
                 />
               </div>
               <button
