@@ -111,3 +111,7 @@ code {
 .hidden {
   display: none;
 }
+
+.mw-fit-content{
+  max-width: fit-content;
+}

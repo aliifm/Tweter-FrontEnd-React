@@ -71,7 +71,7 @@ function Followers() {
               </p>
               <small className="text-muted">@{follower.username}</small>
             </div>
-            <div className="col-3 p-0" onClick={() => handleFollow(follower)}>
+            <div className="mw-fit-content col-3 p-0 " onClick={() => handleFollow(follower)}>
               {/* include para objetos no es muy bueno porque los objetos por mas que sean iguales no son los mismos, include es solamente para cuando trabajamos con strings pelados!*/}
               {user && <FollowButton isFollowing={user.following.some((item) => item._id === follower._id)} />}
             </div>
