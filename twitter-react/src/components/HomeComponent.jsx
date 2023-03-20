@@ -61,29 +61,13 @@ function Home() {
         <div className="content-container">
           <div className="px-2 pb-2 border-end border-start border-bottom border-top">
             <h3>Home</h3>
-            {console.log(user)}
             <div className="d-flex align-items-center">
-              <img
-                src={user.avatar}
-                alt="ImgProfile"
-                className="profileImage"
-              />
+              <img src={user.avatar} alt="ImgProfile" className="profileImage" />
               <form className="w-100" method="post" onSubmit={handleSubmit}>
-                <input
-                  type="text"
-                  id="newTweet"
-                  name="newTweet"
-                  value={newTweet}
-                  className="w-100 form-control"
-                  placeholder=" What's happening?"
-                  onChange={(e) => setNewTweet(e.target.value)}
-                />
+                <input type="text" id="newTweet" name="newTweet" value={newTweet} className="w-100 form-control" placeholder=" What's happening?" onChange={(e) => setNewTweet(e.target.value)} />
 
                 <div className="d-flex justify-content-end">
-                  <button
-                    type="submit"
-                    className="btn bgTweeter rounded-pill mt-2"
-                  >
+                  <button type="submit" className="btn bgTweeter rounded-pill mt-2">
                     Tweet
                   </button>
                 </div>
@@ -92,9 +76,7 @@ function Home() {
           </div>
           <div className="border">
             {tweets.map((tweet) => {
-              return (
-                <Tweet key={tweet.id} tweet={tweet} getTweets={getTweets} />
-              );
+              return <Tweet key={tweet.id} tweet={tweet} getTweets={getTweets} />;
             })}
           </div>
         </div>

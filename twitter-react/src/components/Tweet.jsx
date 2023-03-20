@@ -36,17 +36,10 @@ function Tweet({ tweet, like, getTweets }) {
   };
   return (
     <div className="d-flex p-2 w-100">
-      <img
-        src={tweet.userId.avatar}
-        className="profileImage"
-        alt="img-profile"
-      />
+      <img src={tweet.userId.avatar} className="profileImage" alt="img-profile" />
       <div className="w-75">
         <div className="d-flex align-items-baseline w-100">
-          <Link
-            to={`/profile/${tweet.userId.username}`}
-            className="text-decoration-none text-reset"
-          >
+          <Link to={`/profile/${tweet.userId.username}`} className="text-decoration-none text-reset">
             <h6 className="mb-0 mr-2">
               <strong>
                 {" "}
@@ -59,33 +52,16 @@ function Tweet({ tweet, like, getTweets }) {
         <p className="m-0" id="tweet-content">
           {tweet.body}
         </p>
-        {console.log(tweet)}
-        {console.log(user)}
         <div className="d-flex p-2 justify-content-between align-items-baseline">
           <div className="d-flex align-items-baseline">
-            <button
-              onClick={() => handleLike()}
-              className="border-0 bg-transparent"
-            >
-              <i
-                className={`${
-                  tweet.likes.includes(user._id)
-                    ? "fa-solid text-danger fa-heart"
-                    : "fa-heart fa-regular"
-                }`}
-              ></i>
+            <button onClick={() => handleLike()} className="border-0 bg-transparent">
+              <i className={`${tweet.likes.includes(user._id) ? "fa-solid text-danger fa-heart" : "fa-heart fa-regular"}`}></i>
             </button>
             <span className="ms-1"> {tweet.likes.length} </span>
           </div>
 
-          <button
-            type="submit"
-            className="border-0 bg-transparent"
-            onClick={handleDelete}
-          >
-            {user._id === tweet.userId._id && (
-              <i className="fa-solid fa-trash ms-auto"></i>
-            )}
+          <button type="submit" className="border-0 bg-transparent" onClick={handleDelete}>
+            {user._id === tweet.userId._id && <i className="fa-solid fa-trash ms-auto"></i>}
           </button>
         </div>
       </div>
