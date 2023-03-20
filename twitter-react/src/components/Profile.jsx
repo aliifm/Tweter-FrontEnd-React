@@ -24,14 +24,14 @@ function Profile() {
       method: "get",
       url: `http://localhost:8000/usuarios/following/${user.username}`,
     });
-   
+
     const followingUser = response.data.following.some(
       (user) => user._id === profile._id
     );
-    
+
     setFollowing(followingUser);
   };
-  
+
   useEffect(() => {
     if (user && profile) {
       getFollowing();
@@ -46,7 +46,7 @@ function Profile() {
       method: "get",
       url: `http://localhost:8000/usuarios/${profile._id}/userFollow`,
     });
-      getFollowing();
+    getFollowing();
     // setUser(response.data.loggedUser);
     // setRefresh((prev) => !prev);
   };
@@ -141,13 +141,13 @@ function Profile() {
               to={`/${profile.username}/following`}
               className="ms-auto text-decoration-none text-muted"
             >
-              Following
+              {profile.following.length} Following
             </Link>
             <Link
               to={`/${profile.username}/followers`}
               className="ms-3 text-decoration-none text-muted"
             >
-              Followers
+              {profile.followers.length} Followers
             </Link>
           </div>
 
