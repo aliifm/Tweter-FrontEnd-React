@@ -3,7 +3,12 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-export default function ProfileTweet({ tweet, profile, getTweets, getClickedUserTweets }) {
+export default function ProfileTweet({
+  tweet,
+  profile,
+  getTweets,
+  getClickedUserTweets,
+}) {
   const { token, user } = useSelector((state) => state.user);
   const params = useParams();
 
@@ -44,13 +49,13 @@ export default function ProfileTweet({ tweet, profile, getTweets, getClickedUser
       <img src={profile.avatar} className="profileImage" alt="img-profile" />
       <div className="w-75">
         <div className="d-flex align-items-baseline w-100">
-          <a className="text-decoration-none text-reset" href="/usuarios/<%= tweet.userId.username %>">
+          <div className="text-decoration-none text-reset">
             <h6 className="mb-0 mr-2">
               <strong>
                 {profile.firstname} {profile.lastname}
               </strong>
             </h6>
-          </a>
+          </div>
           <p className="text-muted m-0 fs-6">@{profile.username} </p>
         </div>
         {
@@ -62,14 +67,24 @@ export default function ProfileTweet({ tweet, profile, getTweets, getClickedUser
           {
             <div className="d-flex align-items-baseline">
               <button onClick={handleLike} className="border-0 bg-transparent">
-                <i className={`${tweet.likes.some((id) => id === user._id) ? "fa-solid text-danger fa-heart" : "fa-heart fa-regular"}`}></i>
+                <i
+                  className={`${
+                    tweet.likes.some((id) => id === user._id)
+                      ? "fa-solid text-danger fa-heart"
+                      : "fa-heart fa-regular"
+                  }`}
+                ></i>
               </button>
               <span className="ms-1"> {tweet.likes.length} </span>
             </div>
           }
 
           {user._id === tweet.userId && (
-            <button type="submit" className="border-0 bg-transparent" onClick={handleDelete}>
+            <button
+              type="submit"
+              className="border-0 bg-transparent"
+              onClick={handleDelete}
+            >
               <i className="fa-solid fa-trash ms-auto"></i>
             </button>
           )}
