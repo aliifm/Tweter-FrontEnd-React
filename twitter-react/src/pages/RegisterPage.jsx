@@ -1,11 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { login } from "../redux/userReducer";
 
 function RegisterPage() {
+  const navigate = useNavigate();
   const [inputFirstname, setInputFirstname] = useState("");
   const [inputLastname, setInputLastname] = useState("");
   const [inputEmail, setInputEmail] = useState("");
@@ -30,6 +31,7 @@ function RegisterPage() {
       },
     });
     dispatch(login(response.data));
+    navigate("/login");
   };
 
   return (

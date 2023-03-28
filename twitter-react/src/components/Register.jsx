@@ -1,11 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { login } from "../redux/userReducer";
 
 function Register() {
+  const navigate = useNavigate();
   const [inputFirstname, setInputFirstname] = useState("");
   const [inputLastname, setInputLastname] = useState("");
   const [inputEmail, setInputEmail] = useState("");
@@ -38,12 +39,13 @@ function Register() {
     );
 
     dispatch(login(response.data));
+    navigate("/login");
   };
 
   return (
     <div className="background-color-login h-100">
-      <section className="h-50 container d-flex justify-content-center align-items-center ">
-        <div className="row h-50">
+      <section className="pt-3 container d-flex justify-content-center align-items-center ">
+        <div className="row">
           <div className="hidden-md col-md-7 bgTweeter text-primary d-flex flex-column rounded-start">
             <i className="fa-brands fa-twitter fs-1 p-4 text-white"></i>
             <p className="text-white fs-4 mt-auto p-4">
@@ -140,7 +142,7 @@ function Register() {
                 type="submit"
                 className="btn bgTweeter rounded-pill w-100"
               >
-                <Link to={"/login"}>Sign Up</Link>
+                Sign Up
               </button>
             </form>
             <a className="text-decoration-none text-dark text-center d-block ">

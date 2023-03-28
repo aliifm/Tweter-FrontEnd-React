@@ -15,7 +15,6 @@ function Profile() {
   const token = useSelector((state) => state.user.token);
   const { user } = useSelector((state) => state.user);
   const params = useParams();
-
   const getFollowing = async () => {
     const response = await axios({
       headers: {
@@ -28,7 +27,10 @@ function Profile() {
     const followingUser = response.data.following.some(
       (user) => user._id === profile._id
     );
-
+    //   console.log(user._id);
+    console.log(profile._id);
+    console.log(user.following);
+    console.log(followingUser);
     setFollowing(followingUser);
   };
 
