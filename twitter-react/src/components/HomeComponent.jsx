@@ -4,11 +4,13 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Tweet from "./Tweet";
 import { useSelector } from "react-redux";
+import TwitterModal from "./modal";
 
 function Home() {
   const navigate = useNavigate();
   const token = useSelector((state) => state.user.token);
   const { user } = useSelector((state) => state.user);
+
   const [tweets, setTweets] = useState([]);
   const [newTweet, setNewTweet] = useState("");
 
@@ -53,7 +55,7 @@ function Home() {
     getTweets();
     setNewTweet("");
   };
-
+  <TwitterModal getTweets={getTweets} />;
   return (
     <div className="min-vh-100 col-sm-9 col-9 col-md-10 col-lg-6 my-3">
       <div className="content-container">
