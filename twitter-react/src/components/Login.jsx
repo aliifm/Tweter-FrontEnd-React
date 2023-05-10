@@ -10,6 +10,7 @@ function Login() {
   const [inputEmail, setInputEmail] = useState("");
   const [inputPassword, setInputPassword] = useState("");
   const [token, setToken] = useState("");
+  const [credentials, getCredentials] = useState("d-none");
 
   // const user = useSelector((state) => state.users);
   const dispatch = useDispatch();
@@ -37,29 +38,79 @@ function Login() {
         <div className="row h-75 w-75">
           <div className="hidden-md col-md-7 bgTweeter text-primary d-flex flex-column rounded-start">
             <i className="fa-brands fa-twitter fs-1 p-4 text-white"></i>
-            <p className="text-white fs-4 mt-auto p-4">Hey! Nice to see you again🥰</p>
+            <p className="text-white fs-4 mt-auto p-4">
+              Hey! Nice to see you again🥰
+            </p>
           </div>
           <div className="col-md-5 col-12 bg-white p-5 rounded-end flex-column my-auto h-100 login-style">
             <h4>Login</h4>
             <p>Ready to start using Twitter?</p>
-            <form className="mb-5" action="/auth/login" id="createForm" name="createForm" method="POST" onSubmit={handleSubmit}>
+            <form
+              className="mb-5"
+              action="/auth/login"
+              id="createForm"
+              name="createForm"
+              method="POST"
+              onSubmit={handleSubmit}
+            >
               <div className="mb-3">
-                <input type="email" name="email" placeholder="Email" value={inputEmail} className="form-control" id="email" onChange={(e) => setInputEmail(e.target.value)} aria-describedby="emailHelp" />
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  value={inputEmail}
+                  className="form-control"
+                  id="email"
+                  onChange={(e) => setInputEmail(e.target.value)}
+                  aria-describedby="emailHelp"
+                />
               </div>
               <div className="mb-3">
-                <input type="password" className="form-control" value={inputPassword} name="password" onChange={(e) => setInputPassword(e.target.value)} placeholder="Password" id="password" />
+                <input
+                  type="password"
+                  className="form-control"
+                  value={inputPassword}
+                  name="password"
+                  onChange={(e) => setInputPassword(e.target.value)}
+                  placeholder="Password"
+                  id="password"
+                />
               </div>
-              <button type="submit" className="btn bgTweeter rounded-pill w-100">
+              <button
+                type="submit"
+                className="btn bgTweeter rounded-pill w-100"
+              >
                 Login
               </button>
             </form>
+            <div className="credentials-button ms-3">
+              <h6
+                className="text-primary "
+                onClick={() => {
+                  if (credentials === "d-none") {
+                    getCredentials("d-block");
+                  } else if (credentials === "d-block") {
+                    getCredentials("d-none");
+                  }
+                }}
+              >
+                Guest Credentials
+              </h6>
+              <div className={credentials}>
+                <p className="m-0">Email: twitterguest@gmail.com</p>
+                <p className="">Password: twitter2023</p>
+              </div>
+            </div>
             <p className="text-decoration-none text-dark text-center d-block">
               Don't have an account? <Link to="/register">Sign up </Link>
             </p>
           </div>
         </div>
       </section>
-      <script src="https://kit.fontawesome.com/9f0d5f7751.js" crossorigin="anonymous"></script>
+      <script
+        src="https://kit.fontawesome.com/9f0d5f7751.js"
+        crossorigin="anonymous"
+      ></script>
     </div>
   );
 }
