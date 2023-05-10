@@ -1,6 +1,41 @@
 import React from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { useSelector } from "react-redux";
+import FollowButton from "./FollowButton";
 
 function RightSidebar() {
+  const token = useSelector((state) => state.user.token);
+  const [users, setUsers] = useState([]);
+  const [follow, setFollow] = useState([]);
+
+  const getUsers = async () => {
+    const response = await axios({
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      method: "get",
+      url: `http://localhost:8000/usuarios`,
+    });
+    setUsers(response.data.user);
+  };
+
+  useEffect(() => {
+    getUsers();
+  }, []);
+
+  const handleFollow = async (user) => {
+    const response = await axios({
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      method: "post",
+      url: `http://localhost:8000/usuarios/${user._id}/follow`,
+    });
+    setFollow(response.data);
+  };
+
+  console.log(users);
   return (
     <div className="row container-fluid d-flex justify-content sticky-top my-3">
       <div className="rounded bg-light p-3 mb-3">
@@ -25,67 +60,41 @@ function RightSidebar() {
       </div>
       <div className="rounded bg-light p-3">
         <h3 className="mb-3">Who to follow</h3>
-        <div className="row mb-3">
-          <div className="col-3 text-center">
-            <img
-              className="profileImage"
-              src="https://media.idownloadblog.com/wp-content/uploads/2017/03/Twitter-new-2017-avatar-001.png"
-              alt="Profimage "
-            />
-          </div>
-          <div className="col-6 p-0">
-            <p className="mb-0">
-              <strong> Hack Academy</strong>
-            </p>
-            <small className="text-muted">@HackAcadamy123</small>
-          </div>
-          <div className="col-3 p-0">
-            <button type="button" className="btn bgTweeter rounded-pill mr-2">
-              Follow
-            </button>
-          </div>
-        </div>
-        <div className="row mb-3">
-          <div className="col-3 text-center">
-            <img
-              className="profileImage"
-              src="https://media.idownloadblog.com/wp-content/uploads/2017/03/Twitter-new-2017-avatar-001.png"
-              alt="Profilage"
-            />
-          </div>
-
-          <div className="col-6 p-0">
-            <p className="mb-0">
-              <strong> Hack Academy</strong>
-            </p>
-            <small className="text-muted">@HackAcadamy123</small>
-          </div>
-          <div className="col-3 p-0">
-            <button type="button" className="btn bgTweeter rounded-pill mr-2">
-              Follow
-            </button>
-          </div>
-        </div>
-        <div className="row mb-3">
-          <div className="col-3 text-center">
-            <img
-              className="profileImage"
-              src="https://media.idownloadblog.com/wp-content/uploads/2017/03/Twitter-new-2017-avatar-001.png"
-              alt="Profilemage"
-            />
-          </div>
-          <div className="col-6 p-0">
-            <p className="mb-0">
-              <strong> Hack Academy</strong>
-            </p>
-            <small className="text-muted">@HackAcadamy123</small>
-          </div>
-          <div className="col-3 p-0">
-            <button type="button" className="btn bgTweeter rounded-pill mr-2">
-              Follow
-            </button>
-          </div>
-        </div>
+        {users.map((user) => {
+          return (
+            <div className="row mb-3">
+              <div className="col-3 text-center">
+                <img
+                  className="profileImage"
+                  src={user?.avatar}
+                  alt="Profimage "
+                />
+              </div>
+              <div className="col-6 p-0">
+                <p className="mb-0">
+                  <strong>
+                    {" "}
+                    {user?.firstname} {user?.lastname}{" "}
+                  </strong>
+                </p>
+                <small className="text-muted">@{user?.username}</small>
+              </div>
+              <div
+                className="mw-fit-content col-3 p-0 "
+                onClick={() => handleFollow(user)}
+              >
+                {/* include para objetos no es muy bueno porque los objetos por mas que sean iguales no son los mismos, include es solamente para cuando trabajamos con strings pelados!*/}
+                {user && (
+                  <FollowButton
+                    isFollowing={user.following.some(
+                      (item) => item._id === user._id
+                    )}
+                  />
+                )}
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

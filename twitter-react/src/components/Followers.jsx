@@ -45,12 +45,18 @@ function Followers() {
     <div className="p-3 min-vh-100 col-sm-9 col-9 col-md-6 mb-2">
       <div className="row text-center mb-4">
         <div className="col-6">
-          <Link to={`/${params.username}/followers`} className="fs-5 text-muted text-decoration-none celeste">
+          <Link
+            to={`/${params.username}/followers`}
+            className="fs-5 text-muted text-decoration-none celeste"
+          >
             Followers
           </Link>
         </div>
         <div className="col-6">
-          <Link to={`/${params.username}/following`} className="fs-5 text-muted text-decoration-none">
+          <Link
+            to={`/${params.username}/following`}
+            className="fs-5 text-muted text-decoration-none"
+          >
             Following
           </Link>
         </div>
@@ -61,7 +67,11 @@ function Followers() {
         return (
           <div className="row mb-3">
             <div className="col-3 text-center">
-              <img className="rounded-circle img-fluid w-100 useravatar-fol" src={follower.avatar} alt="Profilmage" />
+              <img
+                className="rounded-circle img-fluid w-100 useravatar-fol"
+                src={follower.avatar}
+                alt="Profilmage"
+              />
             </div>
             <div className="col-6 p-0">
               <p className="mb-0">
@@ -71,9 +81,18 @@ function Followers() {
               </p>
               <small className="text-muted">@{follower.username}</small>
             </div>
-            <div className="mw-fit-content col-3 p-0 " onClick={() => handleFollow(follower)}>
+            <div
+              className="mw-fit-content col-3 p-0 "
+              onClick={() => handleFollow(follower)}
+            >
               {/* include para objetos no es muy bueno porque los objetos por mas que sean iguales no son los mismos, include es solamente para cuando trabajamos con strings pelados!*/}
-              {user && <FollowButton isFollowing={user.following.some((item) => item._id === follower._id)} />}
+              {user && (
+                <FollowButton
+                  isFollowing={user.following.some(
+                    (item) => item._id === follower._id
+                  )}
+                />
+              )}
             </div>
           </div>
         );
