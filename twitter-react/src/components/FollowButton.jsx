@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function FollowButton({ isFollowing }) {
+function FollowButton({ isFollowing, isFollowingHome }) {
   // const [classes, setClasses] = useState("btn btn-transparent border rounded-pill mr-2");
 
   // useEffect(() => {
