@@ -6,6 +6,7 @@ import FollowButton from "./FollowButton";
 
 function RightSidebar() {
   const token = useSelector((state) => state.user.token);
+  const loggedUser = useSelector((state) => state.user.user);
   const [users, setUsers] = useState([]);
   const [follow, setFollow] = useState([]);
 
@@ -19,6 +20,7 @@ function RightSidebar() {
     });
     setUsers(response.data.user);
   };
+  console.log(loggedUser);
 
   useEffect(() => {
     getUsers();
@@ -35,7 +37,6 @@ function RightSidebar() {
     setFollow(response.data);
   };
 
-  console.log(users);
   return (
     <div className="row container-fluid d-flex justify-content sticky-top my-3">
       <div className="rounded bg-light p-3 mb-3">
@@ -83,10 +84,9 @@ function RightSidebar() {
                 className="mw-fit-content col-3 p-0 "
                 onClick={() => handleFollow(user)}
               >
-                {/* include para objetos no es muy bueno porque los objetos por mas que sean iguales no son los mismos, include es solamente para cuando trabajamos con strings pelados!*/}
-                {user && (
+                {loggedUser && (
                   <FollowButton
-                    isFollowing={user.following.some(
+                    isFollowing={loggedUser.following.some(
                       (item) => item._id === user._id
                     )}
                   />
