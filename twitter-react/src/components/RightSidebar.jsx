@@ -18,9 +18,8 @@ function RightSidebar() {
       method: "get",
       url: `http://localhost:8000/usuarios`,
     });
-    setUsers(response.data.user);
+    setUsers(response.data.users);
   };
-  console.log(loggedUser);
 
   useEffect(() => {
     getUsers();
@@ -62,6 +61,7 @@ function RightSidebar() {
       <div className="rounded bg-light p-3">
         <h3 className="mb-3">Who to follow</h3>
         {users.map((user) => {
+          const followedUsers = loggedUser.following.includes(user.id);
           return (
             <div className="row mb-3">
               <div className="col-3 text-center">
@@ -84,13 +84,14 @@ function RightSidebar() {
                 className="mw-fit-content col-3 p-0 "
                 onClick={() => handleFollow(user)}
               >
-                {loggedUser && (
-                  <FollowButton
-                    isFollowing={loggedUser.following.some(
-                      (item) => item._id === user._id
-                    )}
-                  />
-                )}
+                <button
+                  type="button"
+                  className={`btn rounded-pill mr-2  ${
+                    followedUsers ? "btn-transparent border" : "btn-primary"
+                  }`}
+                >
+                  {followedUsers ? "Unfollow" : "Follow"}
+                </button>
               </div>
             </div>
           );
