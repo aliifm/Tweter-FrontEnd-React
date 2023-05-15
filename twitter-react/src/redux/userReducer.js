@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import { format } from "date-fns";
 
 const initialState = {
   token: null,
   user: null,
+  followedUsers: [], // Add a new field to store the followed users
 };
-// Agregar la data del store en el localStorage (usar libreria que paso marcus)
+
 const userSlice = createSlice({
   name: "users",
   initialState,
@@ -20,10 +20,14 @@ const userSlice = createSlice({
     logout(state, action) {
       state.token = null;
       state.user = null;
+      state.followedUsers = []; // Reset the followed users when logging out
+    },
+    updateFollowedUsers(state, action) {
+      state.followedUsers = action.payload; // Update the followed users with the new data
     },
   },
 });
 
-export const { login, logout } = userSlice.actions;
+export const { login, logout, updateFollowedUsers } = userSlice.actions;
 
 export default userSlice.reducer;
