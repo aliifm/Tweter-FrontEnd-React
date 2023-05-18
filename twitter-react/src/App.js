@@ -9,18 +9,21 @@ import Home from "./pages/Home";
 import ProfilePage from "./pages/ProfilePage";
 import RegisterPage from "./pages/RegisterPage";
 import PersonalProfile from "./pages/PersonalProfile";
+import ProtectedRoutes from "./components/ProtectedRoutes";
 
 function App() {
   return (
     <div className="App h-100">
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/register" element={<Register/>} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/profile/:username" element={<ProfilePage />} />
-        <Route path="/:username" element={<PersonalProfile />} />
-        <Route path="/:username/followers" element={<FollowersPage />} />
-        <Route path="/:username/following" element={<FollowingPage />} />
+        <Route path="/register" element={<Register />} />
+        <Route element={<ProtectedRoutes redirectPath={"/login"} />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/profile/:username" element={<ProfilePage />} />
+          <Route path="/:username" element={<PersonalProfile />} />
+          <Route path="/:username/followers" element={<FollowersPage />} />
+          <Route path="/:username/following" element={<FollowingPage />} />
+        </Route>
       </Routes>
     </div>
   );

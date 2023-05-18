@@ -2,12 +2,18 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import FollowButton from "./FollowButton";
+import {
+  usersListSidebar,
+  usersListSidebarFollow,
+} from "../redux/followSidebarReducer";
 
 function RightSidebar() {
+  const users = useSelector((state) => state.follow);
   const token = useSelector((state) => state.user.token);
   const loggedUser = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
-  const [users, setUsers] = useState([]);
+
+  const [follow, setFollow] = useState(false);
 
   const getUsers = async () => {
     const response = await axios({
@@ -17,7 +23,7 @@ function RightSidebar() {
       method: "get",
       url: `http://localhost:8000/usuarios`,
     });
-    setUsers(response.data.users);
+    dispatch(usersListSidebar(response.data.users));
   };
 
   useEffect(() => {
@@ -33,7 +39,7 @@ function RightSidebar() {
       url: `http://localhost:8000/usuarios/${user._id}/follow`,
     });
     // Update the followedUsers state
-    dispatch({ type: "UPDATE_FOLLOWED_USERS", payload: response.data });
+    dispatch(usersListSidebarFollow(response.data));
   };
 
   return (

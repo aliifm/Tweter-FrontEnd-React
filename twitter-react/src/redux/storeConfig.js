@@ -1,8 +1,18 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./userReducer";
 import { combineReducers } from "redux";
-import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist";
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import followSidebarReducer from "./followSidebarReducer";
 
 // const store = configureStore({
 //   reducer: {
@@ -12,6 +22,7 @@ import storage from "redux-persist/lib/storage";
 
 const rootReducer = combineReducers({
   user: userReducer,
+  follow: followSidebarReducer,
 });
 
 const persistConfig = { key: "root", storage };
