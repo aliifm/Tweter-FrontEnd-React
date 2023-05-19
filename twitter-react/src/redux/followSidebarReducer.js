@@ -7,9 +7,6 @@ const followSlice = createSlice({
     usersListSidebar(state, action) {
       return action.payload;
     },
-    usersListSidebarFollow(state, action) {
-      state.push(action.payload);
-    },
   },
 });
 
